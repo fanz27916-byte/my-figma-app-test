@@ -45,16 +45,69 @@
         </div>
       </div>
 
-      <!-- Login button -->
-      <button class="login-button">
-        <span class="login-text">Log in</span>
-      </button>
+      <!-- Login button with icons above -->
+      <div class="login-section">
+        <!-- Three icons above login button -->
+        <div class="login-icons">
+          <div class="icon-item" @click="handleRememberMe">
+            <div class="icon-circle" :class="{ 'remembered': rememberMe }">
+              <span class="icon-text">{{ rememberMe ? '✅' : '🔒' }}</span>
+            </div>
+            <span class="icon-label">记住我</span>
+          </div>
+          <div class="icon-item" @click="handleForgotPassword">
+            <div class="icon-circle">
+              <span class="icon-text">🔑</span>
+            </div>
+            <span class="icon-label">忘记密码</span>
+          </div>
+          <div class="icon-item" @click="handleCreateAccount">
+            <div class="icon-circle">
+              <span class="icon-text">📝</span>
+            </div>
+            <span class="icon-label">创建账户</span>
+          </div>
+        </div>
+
+        <!-- Login button -->
+        <button class="login-button" @click="handleLogin">
+          <span class="login-text">Log in</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// Login view component
+import { ref } from 'vue'
+
+// State for remember me
+const rememberMe = ref(false)
+
+// Handle icon clicks
+const handleRememberMe = () => {
+  rememberMe.value = !rememberMe.value
+  console.log('Remember me:', rememberMe.value)
+}
+
+const handleForgotPassword = () => {
+  console.log('Forgot password clicked')
+  // In a real app, this would navigate to forgot password page
+  alert('忘记密码功能：请检查您的邮箱或联系管理员')
+}
+
+const handleCreateAccount = () => {
+  console.log('Create account clicked')
+  // In a real app, this would navigate to signup page
+  alert('创建账户功能：即将跳转到注册页面')
+}
+
+// Handle login
+const handleLogin = () => {
+  console.log('Login clicked')
+  // In a real app, this would handle login logic
+  alert('登录功能：正在验证您的凭据...')
+}
 </script>
 
 <style scoped>
@@ -234,6 +287,70 @@
   color: #FFFFFF;
 }
 
+/* Login section with icons */
+.login-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.login-icons {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 16px;
+}
+
+.icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.icon-item:hover {
+  transform: translateY(-2px);
+}
+
+.icon-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #F7F7F7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #E6E6E6;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.icon-item:hover .icon-circle {
+  background: #EFEFEF;
+  border-color: #D0D0D0;
+}
+
+.icon-circle.remembered {
+  background: #E6F7FF;
+  border-color: #8AC0FF;
+}
+
+.icon-text {
+  font-size: 24px;
+}
+
+.icon-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #545454;
+  text-align: center;
+  white-space: nowrap;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .login-card {
@@ -252,6 +369,42 @@
   
   .login-button {
     width: 100%;
+  }
+  
+  .login-icons {
+    gap: 24px;
+  }
+  
+  .icon-circle {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .icon-text {
+    font-size: 20px;
+  }
+  
+  .icon-label {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-icons {
+    gap: 16px;
+  }
+  
+  .icon-circle {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .icon-text {
+    font-size: 18px;
+  }
+  
+  .icon-label {
+    font-size: 11px;
   }
 }
 </style>
